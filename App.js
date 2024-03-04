@@ -1,11 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, Dimensions, TouchableOpacity, ScrollView} from 'react-native';
+import { StyleSheet, Text, View, TextInput, Dimensions, TouchableOpacity, ScrollView, Image} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const image = require('./assets/valueBox.png');
+const SplashScreen = () => {
+  return (
+    <View style={{padding: 0}}>
+      <ResponsiveImage source={require('./assets/splash.png')} />
+    </View>
+  );
+};
 
-export default function App() {
+const ResponsiveImage = ({ source }) => {
+  const screenWidth = Dimensions.get('window').width;
+  const screenHeight = Dimensions.get('window').height;
+
+  return (
+    <View style={{ flex: 1, alignItems: "baseline", justifyContent: "flex-start"}}>
+      <Image
+        source={source}
+        style={{ width: screenWidth, height: screenHeight, resizeMode: 'cover' }}
+      />
+    </View>
+  );
+};
+
+
+const MainApp = () => {
   const [value, setValue] = useState('');
   const [lastUniqueInputs, setLastUniqueInputs] = useState([]);
 
@@ -61,6 +82,18 @@ export default function App() {
   );
 }
 
+export default function App() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
+
+    return <MainApp />;
+  }
+
 const MAX_WIDTH = Dimensions.get('window').width;
 const MAX_HEIGHT = Dimensions.get('window').height;
 
@@ -70,6 +103,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
+    backgroundColor: '#E5E5E5',
+    shadowColor: "#000",
+    shadowOffset: {
+	    width: 0,
+	    height: 3,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 4.65,
+    elevation: 7,
   },
   textLabels: {
     paddingLeft: 12,
@@ -86,8 +128,8 @@ const styles = StyleSheet.create({
     borderRadius: 16,
   },
   card: {
-    width: 165, 
-    height: 88, 
+    width: '45.5%', 
+    height: '44%', 
     backgroundColor: '#E73F4E', 
     borderRadius: 16, 
     shadowColor: 'black', 
@@ -100,20 +142,37 @@ const styles = StyleSheet.create({
     elevation: 12,
   },
   box: {
-    width: MAX_WIDTH / 1.05,
-    height: MAX_HEIGHT / 3.85,
+    width: '95%',
+    height: '26.5%',
     backgroundColor: '#60559b',
     flexDirection: 'row',
     borderRadius: 20,
     marginBottom: 20,
-    marginTop: 30,
+    marginTop: 33,
+    shadowColor: "#000",
+    shadowOffset: {
+	    width: 0,
+	    height: 3,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 4.65,
+    elevation: 7,
   },
   lower: {
-    width: MAX_WIDTH / 1.05,
+    width: '95%',
     height: MAX_HEIGHT / 1.63,
     flexDirection: 'column',
     backgroundColor: '#BA4667',
     borderRadius: 20,
+    marginBottom: 25,
+    shadowColor: "#000",
+    shadowOffset: {
+	    width: 0,
+	    height: 3,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 4.65,
+    elevation: 7,
   },
   h1: {
     paddingTop: 18,
@@ -141,7 +200,14 @@ const styles = StyleSheet.create({
     marginTop: -10,
     backgroundColor: '#E73F4E',
     borderRadius: 15,
-    elevation: 10, 
+    shadowColor: "#000",
+    shadowOffset: {
+	    width: 0,
+	    height: 3,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 4.65,
+    elevation: 7, 
   },
   buttonText: {
     color: 'white',
